@@ -6,7 +6,6 @@
 
 <body bgcolor="#C4E1FF">
 
-</div>
 
 <?php
 
