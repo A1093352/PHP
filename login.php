@@ -1,5 +1,10 @@
 <?php
     session_start();
+    $link = @mysqli_connect( 
+        'localhost',  // MySQL主機名稱 
+        'root',       // 使用者名稱 
+        'nukim2022',  // 密碼
+        'php');  // 預設使用的資料庫名稱
 ?>
 
 <?php
@@ -40,11 +45,6 @@
 
 <?php
 
-$a_admin = "admin";
-$admin_PWD = "1234";
-$a_user = "user";
-$user_PWD = "1234";
-
 
 //date_default_timezone_set('Asia/Taipei');
 //echo date("m-d-Y H:i:s", time());
@@ -56,18 +56,18 @@ if(isset($_POST["userName"])){
         $uId = $_POST["userName"];
         $uPWD = $_POST["passwd"];
 
-        if($a_admin == $uId && $admin_PWD == $uPWD){
-            setcookie("UID", $uId, time()+17820);
-            header('Location: admin.php');
+        $sql = "SELECT *
+                FROM user
+                WHERE uName='$uId' AND uPwd='$uPWD'";
+        
+        $result = mysqli_query($link, $sql);
+        if (mysqli_num_rows($result)==1) {
             $_SESSION["login"]="Yes";
-        }
-        else if($a_user == $uId && $user_PWD == $uPWD){
             setcookie("UID", $uId, time()+17820);
             header('Location: signUp.php');
-            $_SESSION["login"]="Yes";
         }
         else
-            echo "帳號或密碼錯誤！";
+             echo "帳號或密碼錯誤！";
     }
     else
         echo "請重新輸入帳號及密碼！";
