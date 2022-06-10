@@ -98,6 +98,15 @@ Licence URI: https://www.os-templates.com/template-terms
         $result = mysqli_query($link, $SQL);
         $total = mysqli_num_rows($result);
         $i = floor($total / 2); 
+        if($total % 2 == 0){
+          $next = $total + 2;
+        }else{
+          $next = $total + 1;
+        }
+        
+        if($i == 0){
+          $i = 1;
+        }
         if($i > 9){
             $i %= 10;
         }
@@ -120,7 +129,7 @@ Licence URI: https://www.os-templates.com/template-terms
       </div>
       <div class="container">
         <div class="content"><img src="img/<?php echo $i?>.jpg" style='width:350px;height:350px;z-index:-1;'></div>
-        <h1 style='color:#000;font-size:41px; border:2px solid #000;'><?php echo $tree[$i-1]?><h1> 
+        <h1 style='color:#000;font-size:41px; border:2px solid #000;'>目前階段：<?php echo $tree[$i-1]." (".$total."/".$next.")"?></h1> 
       </div>
       <div class='inspace-15'></div>
       
